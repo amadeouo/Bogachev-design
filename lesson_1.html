@@ -1,0 +1,61 @@
+<!-- Использование эффектов-фильтров -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+    }
+
+    /*svg {*/
+    /*  filter: blur(2px);*/
+    /*}*/
+
+    /*svg:hover {*/
+    /*  filter: none;*/
+    /*}*/
+    svg {
+      filter: drop-shadow(2px 2px 0 pink) drop-shadow(-2px -2px 0 blue) drop-shadow(2px 2px 0 lime) drop-shadow(-2px -2px 0 orange);
+    }
+
+    svg + svg {
+      filter: blur(1rem) drop-shadow(200px 2px 20px pink);
+    }
+
+    svg + svg:hover {
+      filter: none;
+    }
+
+
+  </style>
+</head>
+<body>
+<!--<svg width="300" height="300">-->
+<!--  <circle cx="150" cy="150" r="100" fill="grey"/>-->
+<!--</svg>-->
+<svg
+  width="250"
+  height="500"
+>
+  <polygon
+    points="100,10 40,198 190,78 10,78 160,198"
+    style="fill: none; stroke: purple; stroke-width: 4px"
+  />
+</svg>
+<svg
+  width="250"
+  height="500"
+>
+  <polygon
+    points="100,10 40,198 190,78 10,78 160,198"
+    style="fill: blue; stroke: none; stroke-width: 4px"
+  />
+</svg>
+</body
+</html>
