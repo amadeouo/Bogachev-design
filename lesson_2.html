@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+    :root {
+      --main-bg-color: black;
+    }
+
+    @property --main-bg-color {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: blue;
+    }
+
+    /*div {*/
+    /*  width: 200px;*/
+    /*  height: 200px;*/
+    /*  color: white;*/
+    /*  font-family: sans-serif;*/
+    /*  margin: 4px;*/
+    /*  padding: 9px;*/
+    /*  border: 1px solid black;*/
+    /*  display: inline-block;*/
+    /*}*/
+
+    /*.parent {*/
+    /*  --div-color: red;*/
+    /*  background-color: var(--div-color);*/
+    /*}*/
+
+    /*.child {*/
+    /*  width: 80%;*/
+    /*  height: 40%;*/
+    /*  background-color: var(--div-color);*/
+    /*}*/
+
+    /*@property --div-color {*/
+    /*  syntax: "<color>";*/
+    /*  inherits: false;*/
+    /*  initial-value: crimson;*/
+    /*}*/
+
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 600px;
+      height: 900px;
+      border: 2px solid black;
+    }
+
+    .small {
+      --small-color: green;
+      width: 500px;
+      height: 200px;
+      border: 3px solid red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      background-color: var(--small-color);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .child {
+      background-color: var(--small-color);
+    }
+
+    @property --small-color {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: red;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="main">
+  <div class="small">first</div>
+  <div class="small">
+    <p>second text</p>
+    <div class="child">
+      <p>second child</p>
+    </div>
+  </div>
+  <div class="small">
+    <p>third</p>
+  </div>
+  <div class="small">
+    <p>fourth</p>
+  </div>
+</div>
+</body>
+</html>
