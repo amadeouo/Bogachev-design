@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+    :root {
+      --translate-scale: 100px;
+    }
+
+     body {
+       display: flex;
+       height: 100vh;
+       margin: 0;
+       justify-content: center;
+       align-items: center;
+       font-family: Arial sans-serif;
+       background: linear-gradient(45deg, #2c3e50, #1a1a2e);
+     }
+     .scene {
+       width: 200px;
+       height: 200px;
+       perspective: 500px;
+     }
+
+     .cube {
+       width: 100%;
+       height: 100%;
+       transform-style: preserve-3d;
+       position: relative;
+       transform: rotateX(-25deg) rotateY(-25deg);
+       animation: rot 10s infinite linear;
+     }
+
+     @keyframes rot {
+       from {transform: rotateX(-25deg) rotateY(-25deg)}
+       to {transform: rotateX(335deg) rotateY(335deg)}
+     }
+
+     .cube-face {
+       position: absolute;
+       width: 100%;
+       height: 100%;
+       border: 2px solid rgba(255, 255, 255, 0.8);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       font-size: 25px;
+       font-weight: bold;
+       color: white;
+       transition: all 0.5s ease;
+     }
+
+
+     .front {
+       background: rgba(52, 152, 219, 0.9);
+       transform: translateZ(var(--translate-scale));
+     }
+
+     .back {
+       background: rgba(46, 204, 113, 0.9);
+       transform: rotateY(180deg) translateZ(var(--translate-scale));
+     }
+
+     .right {
+       background: rgba(155, 89, 182, 0.9);
+       transform: rotateY(90deg) translateZ(var(--translate-scale));
+     }
+
+     .left {
+       background: rgba(241, 196, 15, 0.9);
+       transform: rotateY(-90deg) translateZ(var(--translate-scale));
+     }
+
+     .top {
+       background: rgba(230, 126, 34, 0.9);
+       transform: rotateX(90deg) translateZ(var(--translate-scale));
+     }
+
+     .bottom {
+       background: rgba(230, 126, 34, 0.9);
+       transform: rotateX(-90deg) translateZ(var(--translate-scale));
+     }
+
+     .cube:hover {
+       --translate-scale: 110px;
+     }
+
+
+
+
+
+     /*.front:hover {*/
+     /*  transform: translateZ(110px);*/
+     /*}*/
+
+     /*.back:hover {*/
+     /*  transform: rotateY(180deg) translateZ(110px);*/
+     /*}*/
+
+     /*.right:hover {*/
+     /*  transform: rotateY(90deg) translateZ(110px);*/
+     /*}*/
+
+     /*.left:hover {*/
+     /*  transform: rotateY(-90deg) translateZ(110px);*/
+     /*}*/
+
+     /*.top:hover {*/
+     /*  transform: rotateX(90deg) translateZ(110px);*/
+     /*}*/
+
+     /*.bottom:hover {*/
+     /*  transform: rotateX(-90deg) translateZ(110px);*/
+     /*}*/
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="scene">
+  <div class="cube">
+    <div class="cube-face front">front</div>
+    <div class="cube-face back">back</div>
+    <div class="cube-face right">right</div>
+    <div class="cube-face left">left</div>
+    <div class="cube-face top">top</div>
+    <div class="cube-face bottom">bottom</div>
+  </div>
+</div>
+</body>
+</html>
