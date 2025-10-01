@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #667eea, #674ba2);
+      font-family: Arial, sans-serif;
+    }
+
+    .card-scene {
+      width: 300px;
+      height: 400px;
+      perspective: 1500px;
+      cursor: pointer;
+
+      &:hover .card {
+        transform: rotateY(15deg) rotateX(15deg);
+        box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      &:hover .card-title {
+        transform: scale(1.1);
+      }
+
+      &:hover .card-content {
+        transform: scale(1.1);
+      }
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      transition: all 0.5s ease;
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 30px;
+      text-align: center;
+      backface-visibility: hidden;
+    }
+
+    .card-front {
+      color: white;
+      background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    }
+
+    .card-back {
+      color: white;
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+      transform: rotateY(180deg);
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      transition: all 0.5s ease;
+    }
+
+    .card-content {
+      font-size: 16px;
+      transition: all 0.5s ease;
+    }
+
+    .flip-label {
+      display: block;
+      text-align: center;
+      margin-bottom: 7px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+      }
+    }
+
+    .card-flip {
+      display: none;
+    }
+
+    .card-flip:checked ~ .card-scene .card {
+      transform: rotateY(180deg);
+    }
+
+    .card-flip:checked ~ .card-scene:hover .card {
+      transform: rotateY(165deg) rotateX(15deg);
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input
+      class="card-flip"
+      id="cardFlip"
+      type="checkbox"
+    />
+    <label for="cardFlip" class="flip-label">Перевернуть карточку</label>
+    <div class="card-scene">
+      <div class="card">
+        <div class="card-face card-front">
+          <h2 class="card-title">Волшебная карта</h2>
+          <p class="card-content">Наведите курсор, чтобы увидеть 3д эффект</p>
+        </div>
+        <div class="card-face card-back">
+          <h2 class="card-title">Сюрприз!</h2>
+          <p class="card-content">Обратная сторона карты</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
