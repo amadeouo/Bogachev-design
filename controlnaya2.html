@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style>
+    :root {
+      --translate-scale: 10px;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      margin: 0;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #3711bf, #d4ccf0);
+    }
+
+    .scene {
+      width: 500px;
+      height: 500px;
+      perspective: 2000px;
+    }
+
+    .tr {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      position: relative;
+      transform: rotateX(-25deg) rotateY(-25deg) ;
+      animation: rot 10s infinite linear;
+    }
+
+    @keyframes rot {
+      from {transform: rotateX(-25deg) rotateY(-25deg)}
+      to {transform: rotateX(-25deg) rotateY(335deg)}
+    }
+
+    .tr-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .front {
+      fill: rgb(240, 91, 225, 0.9);
+      transform: rotateY(0deg) rotateX(30deg) translateZ(1px);
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .back {
+      fill: rgb(240, 144, 230, 0.9);
+      transform: rotateY(90deg) rotateX(30deg) translateZ(1px);
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .right {
+      fill: rgb(179, 34, 164, 0.9);
+      transform: rotateY(180deg) rotateX(30deg) translateZ(1px);
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .left {
+      fill: rgb(179, 34, 164, 0.9);
+      transform: rotateY(270deg) rotateX(30deg) translateZ(1px);
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .bottom {
+      fill: rgb(161, 69, 151);
+      transform: rotateX(90deg) translateZ(-216px) translateY(-123px);
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .tr:hover {
+      --translate-scale: 10px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class=scene>
+    <div class=tr>
+      <div class="tr-face front">
+        <svg width=500 height=500>
+          <polygon points="250,250 125,500 375,500"/>
+        </svg>
+      </div>
+      <div class="tr-face back">
+        <svg width=500 height=500>
+          <polygon points="250,250 125,500 375,500"/>
+        </svg>
+      </div>
+      <div class="tr-face right">
+        <svg width=500 height=500>
+          <polygon points="250,250 125,500 375,500"/>
+        </svg>
+      </div>
+      <div class="tr-face left">
+        <svg width=500 height=500>
+          <polygon points="250,250 125,500 375,500"/>
+        </svg>
+      </div>
+      <div class="tr-face bottom">
+        <svg width=500 height=500>
+          <polygon points="125,250 375,250 375,500 125,500"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

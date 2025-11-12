@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      width: 300px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <form class="inputs" data-js-form>
+    <label for="height">Рост в сантиметрах</label>
+    <input
+      type="number"
+      id="height"
+      name="height"
+      data-js-height-input
+      required
+      min="0"
+    >
+    <label for="weight">Вес в кг</label>
+    <input
+      type="number"
+      id="weight"
+      name="weight"
+      data-js-weight-input
+      required
+      min="0"
+    >
+    <button type="submit">Рассчитать</button>
+  </form>
+  <div class="result">
+    <span class="result-text" data-js-result></span>
+  </div>
+
+<!--
+  Программа будет запрашивать вес пользователя в килограммах
+  и рост в метрах и считать индекс массы тела по формуле
+  вес / рост^2. Делает проверку чтобы рост и вес были числовыми значениями
+  и при этом вес или рост не были <= 0 выдает ошибку "Введите корректные данные"
+  Иначе, производит доп. проверку. Если индекс массы тела меньше чем 18.5, то выдает "недостаточный вес"
+  Если индекс массы тела лежит в диапазоне от 18.5 вкл до 25 не вкл, то пишет "нормальный вес"
+  Если от 25вкл до 30 не вкл, то пишет "избыточный вес"
+  В других случаях пишет "ожирение"
+  Ваш imt: число, вывод
+-->
+  <script defer>
+    const form = document.querySelector('[data-js-form]')
+    const height = document.querySelector('[data-js-height-input]');
+    const weight = document.querySelector('[data-js-weight-input]');
+    const resultSpan = document.querySelector('[data-js-result]');
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const data = new FormData(form)
+      const height = data.get('height');
+      const weight = data.get('weight');
+      const indexMassTela = Math.round((weight)/(height/100)**2)
+      let diagnoz = ""
+
+      if (indexMassTela < 18.5) {
+        diagnoz = 'Недостаточный вес'
+      } else if (indexMassTela >= 18.5 || indexMassTela < 25) {
+        diagnoz = 'Нормальный вес'
+      } else if (indexMassTela >= 25 || indexMassTela < 30) {
+        diagnoz = 'Избыточный вес'
+      } else {
+        diagnoz = 'Ожирение'
+      }
+
+      resultSpan.innerHTML = `Ваш индекс массы тела - ${indexMassTela}, у вас - ${diagnoz}`;
+    }
+    form.addEventListener('submit', handleSubmit)
+  </script>
+</body>
+</html>

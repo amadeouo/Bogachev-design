@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      width: 300px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 300px;
+    }
+
+    .type-operation {
+      display: flex;
+      width: 200px;
+      margin-bottom: 40px;
+    }
+
+    .type-item {
+      display: flex;
+      flex-direction: column;
+      margin-right: 50px;
+    }
+
+    .radio {
+      width: 20px;
+    }
+  </style>
+
+</head>
+<body>
+  <form class="inputs" data-js-form>
+    <fieldset class="type-operation">
+      <legend>Выберите тип операции</legend>
+      <div class="type-item">
+        <input class="radio" type="radio" id="type1" name="type" value="dr" />
+        <label for="type1">Доллары в рубли</label>
+      </div>
+      <div class="type-item">
+        <input class="radio" type="radio" id="type2" name="type" value="rd" />
+        <label for="type2">Рубли в доллары</label>
+      </div>
+    </fieldset>
+    <label for="value">Сумма средств</label>
+    <input
+      type="number"
+      id="value"
+      name="value"
+      data-js-height-input
+      required
+      min="0"
+    >
+    <button type="submit">Рассчитать</button>
+  </form>
+  <div class="result">
+    <span class="result-text" data-js-result></span>
+  </div>
+<!--
+  Программа предлагает выбрать пользователю направление конвертации валют
+  1 - доллары в рубли
+  2 - рубли в доллары
+  Ввести фиксированный обменный курс
+  После этого запрашивается направление операции
+  Запрашивается сумма средств
+  Производится проверка является ли сумма числа < 0 (введите корректную сумму)
+  Если пользователь выбрал первую сумму обмена
+-->
+
+  <script defer>
+    const form = document.querySelector('[data-js-form]')
+    const height = document.querySelector('[data-js-height-input]');
+    const resultSpan = document.querySelector('[data-js-result]');
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const cursRd = 90
+      const cursDr = 80
+      const data = new FormData(form)
+      const value = data.get('value');
+      const radio = data.get('type')
+      let result = 12
+      console.log(radio)
+      console.log(value)
+
+      if (radio === 'dr') {
+        result = value * cursDr
+      } else {
+        result = value / cursRd
+      }
+
+      resultSpan.innerHTML = `Итог - ${result}`;
+    }
+    form.addEventListener('submit', handleSubmit)
+  </script>
+</body>
+</html>
