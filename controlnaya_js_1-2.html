@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+</head>
+<body>
+  <script defer>
+    let priceInput = prompt("Введите цену товара (руб.):");
+    let price = parseFloat(priceInput?.replace(",", "."));
+
+    let quantityInput = prompt("Введите количество товара:");
+    let quantity = parseInt(quantityInput, 10);
+
+    let promo = prompt("Введите промокод (если нет, оставьте поле пустым):");
+    if (promo !== null) {
+      promo = promo.trim().toUpperCase();
+    }
+
+    if (
+      Number.isNaN(price) ||
+      Number.isNaN(quantity) ||
+      price <= 0 ||
+      quantity <= 0
+    ) {
+      alert("Ошибка: введите корректные данные!");
+    } else {
+      let total = price * quantity;
+
+      let discount = 0;
+
+      if (promo === "SALE10") {
+        discount = 10;
+      } else if (promo === "SALE20") {
+        discount = 20;
+      } else if (promo === "SALE30") {
+        discount = 30;
+      }
+
+      if (total > 10000) {
+        discount += 5;
+      }
+
+      let finalPrice = total * (1 - discount / 100);
+
+      let message = `Итоговая стоимость: ${finalPrice.toFixed(2)} руб.`;
+
+      if (discount > 0) {
+        message += `\nСкидка: ${discount}%`;
+      }
+
+      alert(message);
+    }
+
+  </script>
+</body>
+</html>

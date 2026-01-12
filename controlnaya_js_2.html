@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Controlnaya 2 JS</title>
+</head>
+<body>
+  <script defer>
+    let isStart = true
+
+    let sumTip = 0
+    let sumChecks = 0
+    let totalBill = 0
+
+
+
+    alert('Добро пожаловать в калькулятор чаевых!')
+
+    while (isStart) {
+      let checksNumber = prompt('Расчет №')
+      let checksValue = parseFloat(prompt('Введите сумму счета (руб.):'))
+
+      if (isNaN(checksValue) || checksValue < 0) {
+        alert('Ошибка: введите корректную сумму!')
+        checksValue = prompt('Введите сумму счета (руб.):')
+        continue
+      }
+
+      let serviceRating = prompt(
+        'Оцените сервис:\n' +
+        '1 - отлично (20%)\n' +
+        '2 - хорошо (15%)\n' +
+        '3 - удовлетворительно (10%)'
+      )
+
+      let tipsPercent, nameGrade
+
+      if (serviceRating === '1') {
+        tipsPercent = 20
+        nameGrade = 'отлично'
+      } else if (serviceRating === '2') {
+        tipsPercent = 15
+        nameGrade = 'хорошо'
+      } else if (serviceRating === '3') {
+        tipsPercent = 10
+        nameGrade = 'удовлетворительно'
+      } else {
+        alert('Ошибка, введите только одну цифру')
+        serviceRating = prompt(
+          'Оцените сервис:\n' +
+          '1 - отлично (20%)\n' +
+          '2 - хорошо (15%)\n' +
+          '3 - удовлетворительно (10%)'
+        )
+        continue
+      }
+
+      if (checksValue > 5000) {
+        checksValue = checksValue * 1.05
+      }
+
+      let tips = checksValue * (tipsPercent / 100)
+      let totalAmount = checksValue + tips
+
+      sumTip = sumTip + tips
+      sumChecks = sumChecks + checksValue
+      totalBill++
+
+      alert(
+        `Результат расчета №${checksNumber}:\n` +
+        `Счет: ${parseFloat(checksValue).toFixed(2)} руб.\n` +
+        `Оценка сервиса: ${nameGrade}\n` +
+        `Чаевые (${tipsPercent}%): ${tips} руб.\n` +
+        `Итого к оплате: ${totalAmount} руб.`
+      )
+
+      let again = confirm('Хотите рассчитать чаевые для еще одного счета?')
+      if (!again) {
+        isStart = false
+      }
+    }
+
+    let result
+
+    if (totalBill > 0) {
+      let avgBill = sumChecks / totalBill;
+      let avgTip = sumTip / totalBill;
+      let overallTipPercent = sumChecks > 0 ? (sumTip / sumChecks) * 100 : 0;
+
+      result =
+        "СТАТИСТИКА ПО ВСЕМ РАСЧЕТАМ:\n" +
+        `Количество расчетов: ${totalBill}\n` +
+        `Общая сумма счетов: ${sumChecks} руб.\n` +
+        `Общая сумма чаевых: ${sumTip} руб.\n` +
+        `Средний счет: ${avgBill} руб.\n` +
+        `Средние чаевые: ${avgTip} руб.\n` +
+        `Процент чаевых: ${overallTipPercent}%\n` +
+        "Спасибо за использование!"
+    } else {
+      result = "Вы не сделали ни одного расчета. До свидания!";
+    }
+
+    alert(result)
+  </script>
+</body>
+</html>
