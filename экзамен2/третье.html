@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Второе задание</title>
+</head>
+<body>
+  <script>
+    let isRunning = true
+
+    while (isRunning) {
+      const arrPrices = []
+
+      for (let i = 1; i <= 5; i++) {
+        let price = parseFloat(prompt(`Цена товара ${i} из 5(руб)`))
+
+        while (price < 0) {
+          price = parseFloat(prompt(`Введите положительное число`))
+        }
+
+        arrPrices.push(price)
+      }
+
+      let countChecks = arrPrices.length
+      let sum = 0
+      let max = null
+      let min = Infinity
+
+      for (let price of arrPrices) {
+        sum += price
+
+        if (price > max) {
+          max = price
+        }
+
+        if (price < min) {
+          min = price
+        }
+      }
+
+      let avgPrice = sum / countChecks
+      let isHaveProductExpensiveThousand = false
+
+      if (max >= 1000) {
+        isHaveProductExpensiveThousand = true
+      }
+
+
+      const result = `
+       Чек покупок:
+       Количество товаров: ${countChecks}
+
+       Стоимость:
+       Общая стоимость: ${sum} руб.
+       Итого к оплате: ${sum} руб.
+
+       Анализ:
+       Самый дорогой товар: ${max} руб.
+       Самый дешевый товар: ${min} руб.
+       Средняя цена: ${avgPrice} руб.
+
+       ${isHaveProductExpensiveThousand ? "Есть товары дороже 1000 руб" : "Нет товаров дороже 1000 руб"}
+       ${arrPrices}
+       `
+
+      alert(result)
+
+
+      isRunning = false
+    }
+  </script>
+</body>
+</html>

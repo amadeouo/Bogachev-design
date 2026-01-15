@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Первый номер</title>
+</head>
+<body>
+<!--  Напишите программу для умного термостата, которая выбирает режим работы кондиционера на основе нескольких параметров.
+Входные параметры:
+– Текущая температура в комнате в градусах по Цельсию;
+– Желаемая температура;
+– Влажность в процентах (число от 0 до 100);
+– Время суток (день, вечер, ночь)
+Основные правила выбора режима:
+1) Охлаждение("Режим: ОХЛАЖДЕНИЕ") включается если: Температура выше желаемой на 3+ градуса
+2) Обогрев("Режим: ОБОГРЕВ") включается если: Температура ниже желаемой на 3+ градуса
+3) Осушение("Режим: ОСУШЕНИЕ") включается если: Влажность > 70% И температура в пределах ±2 градуса от желаемой НО! Не ночью (ночью осушение шумит)
+4) Вентиляция("Режим: ВЕНТИЛЯЦИЯ") включается если: Температура в пределах ±2 градуса от желаемой И влажность нормальная (≤70%) ИЛИ душно (температура в норме, но влажность 60-70%)
+5) Режим сна("Режим: СОН") если: Время'ночь' И температура в пределах ±1 градуса от желаемой
+-->
+  <script>
+    let isRunning = true
+
+    while (isRunning) {
+      const currentTemperature = parseFloat(prompt('Введите Текущую температуру в комнате в градусах по Цельсию'))
+      const neededTemperature = parseFloat(prompt('Введите Желаемую температуру в комнате в градусах по Цельсию'))
+      const humidity = parseFloat(prompt('Введите Влажность в процентах (число от 0 до 100)'))
+      const time = prompt('Введите Время суток (день,вечер,ночь)')
+
+      if (currentTemperature - neededTemperature >= 3) {
+        alert('Режим: ОХЛАЖДЕНИЕ')
+        isRunning = false
+      } else if (currentTemperature - neededTemperature <= -3) {
+        alert('Режим: ОБОГРЕВ')
+        isRunning = false
+      } else if (humidity > 70 && Math.abs(currentTemperature - neededTemperature) <= 2 && time !== 'ночь') {
+        alert('Режим: ОСУШЕНИЕ')
+        isRunning = false
+      } else if (time === 'ночь' && Math.abs(currentTemperature - neededTemperature) <= 1) {
+        alert('Режим: СОН')
+        isRunning = false
+      } else if (Math.abs(currentTemperature - neededTemperature) <= 2 && humidity <= 70) {
+        alert('Режим: ВЕНТИЛЯЦИЯ')
+        isRunning = false
+      } else {
+        alert('Ошибка')
+        isRunning = false
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Второе задание</title>
+</head>
+<body>
+  <script>
+     let isRunning = true
+
+     while (isRunning) {
+       const arrGrades = []
+
+       for (let i = 1; i <= 5; i++) {
+         let grade = parseFloat(prompt(`Введите оценку ${i} студента`))
+
+         while (grade > 5 || grade < 2 || isNaN(grade)) {
+           grade = parseFloat(prompt(`Неправильно, введите число в диапазоне от 2 до 5`))
+         }
+
+         arrGrades.push(grade)
+       }
+
+       let counterFive = 0
+       let counterFour = 0
+       let counterThree = 0
+       let counterTwo = 0
+       let sum = 0
+       let countGrades = arrGrades.length
+
+       for (let grade of arrGrades) {
+         if (grade === 5) {
+           counterFive++
+         } else if (grade === 4) {
+           counterFour++
+         } else if (grade === 3) {
+           counterThree++
+         } else if (grade === 2) {
+           counterTwo++
+         }
+
+         sum += grade
+       }
+
+       let avgGrade = sum / countGrades
+       let uspevaemost = ''
+
+       if (avgGrade >= 4.5) {
+         uspevaemost = 'Отлично'
+       } else if (avgGrade >= 3.5) {
+         uspevaemost = 'Хорошо'
+       } else if (avgGrade >= 2.5) {
+         uspevaemost = 'Удовлетворительно'
+       }
+
+       const result = `
+       Статистика оценок
+       Всего студентов: ${countGrades}
+
+       Количество оценок:
+       5 (отлично): ${counterFive}
+       4 (хорошо): ${counterFour}
+       3 (удовлетворительно): ${counterThree}
+       2 (неудовлетворительно): ${counterTwo}
+
+       Средний балл: ${avgGrade}
+       Успеваемость: ${uspevaemost}
+       `
+
+       alert(result)
+
+
+       isRunning = false
+     }
+  </script>
+</body>
+</html>
