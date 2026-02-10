@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Первая пара</title>
+  <script>
+    // первая задача
+    function sum(a, b) {
+      return a + b;
+    }
+    function razn(a, b) {
+      return a - b;
+    }
+    function umn(a, b) {
+      return a * b;
+    }
+    function del(a, b) {
+      if (b === 0) {
+        return 'Ошибка - деление на 0'
+      }
+      return a / b
+    }
+
+    console.log(sum(1, 2))
+    console.log(razn(1, 2))
+    console.log(umn(1, 2))
+    console.log(del(1, 2))
+    console.log(del(1, 0))
+
+
+    // вторая задача
+    function ageControl(age) {
+      if (age >= 18) {
+        return 'Можно вводить машину'
+      } else {
+        return 'Нельзя водить машину'
+      }
+    }
+
+    console.log(ageControl(25))
+    console.log(ageControl(16))
+
+    let user = 20
+
+    function prava(number) {
+      if (number === 'Можно водить машину') {
+        return 'Выдать права'
+      }
+    }
+
+    prava(ageControl(20))
+  </script>
+</head>
+<body>
+</body>
+</html>
