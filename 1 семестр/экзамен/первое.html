@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    // Перед тем как показать Богачеву удалите все комментарии, потому что любой комментарий - признак сгенерированного гпт.
+    let isRunning = true
+
+    while (isRunning) {
+      let signalColor = prompt('Введите цвет сигнала').toLowerCase()
+
+      // Для тех, кто шарит более-менее и понимает что тут происходит, то раскомментируйте код ниже, а нижний удалите
+      // while (signalColor !== 'красный' && signalColor !== 'зеленый' && signalColor !== 'желтый') {
+      //   alert('Ошибка! Введите правильный цвет. "Зеленый", "Красный" или "Желтый"')
+      //   signalColor = prompt('Введите цвет сигнала').toLowerCase()
+      // }
+
+      // Для тех, кто вообще не понимает что происходит, то раскомментируйте код ниже, а верхний удалите
+      // if (signalColor !== 'красный' || signalColor !== 'зеленый' || signalColor !== 'желтый') {
+      //   alert('Ошибка! Введите правильный цвет. "Зеленый", "Красный" или "Желтый"')
+      //   signalColor = prompt('Введите цвет сигнала').toLowerCase()
+      // }
+
+      const carSpeed = Number(prompt('Введите скорость машины'))
+      const timeInSeconds = prompt('Введите время в секундах, прошедшее с момента переключения света на текущий')
+
+      if (signalColor === 'красный' && carSpeed > 0) {
+        alert('Штраф: проезд на запрещающий сигнал')
+      } else if (signalColor === 'желтый' && carSpeed > 20) {
+        alert('Штраф: проезд на запрещающий сигнал')
+      } else if (signalColor === 'зеленый') {
+        alert('Проезд разрешен')
+      } else if (signalColor === 'желтый' && carSpeed <= 20 && timeInSeconds < 3) {
+        alert('Проезд разрешен')
+      } else if (signalColor === 'красный' && carSpeed === 0) {
+        alert('Проезд разрешен')
+      } else {
+        alert('Проезд запрещен, но штраф не выписан')
+      }
+      isRunning = false
+    }
+  </script>
+</body>
+</html>

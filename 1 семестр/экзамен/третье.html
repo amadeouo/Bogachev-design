@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let isRunning = true
+
+    while (isRunning) {
+      const num = parseFloat(prompt('Введите число'))
+
+      const resultAsc = `
+      ${num} * 1 = ${num}
+      ${num} * 2 = ${num * 2}
+      ${num} * 3 = ${num * 3}
+      ${num} * 4 = ${num * 4}
+      ${num} * 5 = ${num * 5}
+      ${num} * 6 = ${num * 6}
+      ${num} * 7 = ${num * 7}
+      ${num} * 8 = ${num * 8}
+      ${num} * 9 = ${num * 9}
+      ${num} * 10 = ${num * 10}
+      `
+
+      const resultDesc = `
+      ${num} * 10 = ${num * 10}
+      ${num} * 9 = ${num * 9}
+      ${num} * 8 = ${num * 8}
+      ${num} * 7 = ${num * 7}
+      ${num} * 6 = ${num * 6}
+      ${num} * 5 = ${num * 5}
+      ${num} * 4 = ${num * 4}
+      ${num} * 3 = ${num * 3}
+      ${num} * 2 = ${num * 2}
+      ${num} * 1 = ${num}
+      `
+
+      alert(resultAsc)
+
+      const isNeededToReverse = confirm('Перевернуть таблицу?')
+      if (isNeededToReverse) alert(resultDesc)
+
+      isRunning = false
+    }
+  </script>
+</body>
+</html>

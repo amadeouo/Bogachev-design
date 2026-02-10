@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let isRunning = true
+
+    while (isRunning) {
+      const arrNumbers = []
+
+      for (let i = 0; i < 5; i++) {
+        arrNumbers.push(parseFloat(prompt(`Введите ${i+1} число`)))
+      }
+
+      let sum = 0
+      let count = 0
+      let max = null
+      let min = null
+      let counterPositiveNumber = 0
+      let counterNegativeNumber = 0
+      let counterZero = 0
+
+      for (const number of arrNumbers) {
+        sum += number
+        count++
+
+        if (number > 0) {
+          counterPositiveNumber++
+        } if (number < 0) {
+          counterNegativeNumber++
+        } if (number === 0) {
+          counterZero++
+        }
+
+        if (number > max) {
+          max = number
+        }
+
+        if (number < min) {
+          min = number
+        }
+      }
+
+      const result = `
+      Результаты анализа
+      Сумма = ${sum}
+      Среднее = ${sum / count}
+      Максимум = ${max}
+      Минимум = ${min}
+      Количество положительных чисел = ${counterPositiveNumber}
+      Количество отрицательных чисел = ${counterNegativeNumber}
+      Количество нулей = ${counterZero}
+      все цифры ${arrNumbers}
+      `
+
+      alert(result)
+
+      isRunning = false
+    }
+  </script>
+
+</body>
+</html>
