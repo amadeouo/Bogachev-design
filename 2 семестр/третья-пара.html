@@ -25,8 +25,22 @@
     function second(val1) {
       return val1 % 2 === 0
     }
-
     second(2)
+
+    function third(weight, distance, isExpress = false, isFragile = false) {
+      let basePrice = 0
+      if (weight < 1) { basePrice += 100 }
+      if (weight < 5) { basePrice += 200 }
+      if (weight < 10) { basePrice += 300 }
+      if (weight >= 10) { basePrice += 400 + (weight - 10) * 20 }
+      if (distance > 10) { basePrice += (distance - 10) * 5}
+      if (isExpress) { basePrice *= 2 }
+      if (isFragile) { basePrice += 150 }
+
+      return basePrice
+    }
+
+    console.log(third(12, 13, false, true))
   </script>
 </body>
 </html>
