@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <script>
+    // Первая задача - работа с массивом
+    let grades = [1, 2, 3, 2, 4, 5, 3, 6, 7, 5, 8, 9, 1]
+    // Средняя оценка, округленная до второго знака после запятой
+    // максимальное и минимальное
+    // кол-во всех оценок
+    // успеваемость - сумма 4 и 5, в процентах от общего кол-ва оценок, округленных до 1 знака после запятой
+    let sum = 0
+    let max = 0
+    let min = 0
+    let count = 0
+    let perf = 0
+
+    for (const grade of grades) {
+      sum += grade
+      if (grade > max) {
+        max = grade
+      }
+      if (grade < min) {
+        min = grade
+      }
+      count++
+      if (grade === 4 || grade === 5) {
+        perf++
+      }
+    }
+
+    alert(`
+    Средняя оценка: ${(sum / count).toFixed(2)}
+    Максимальная оценка: ${max}
+    Минимальная оценка: ${min}
+    Кол-во всех оценок: ${count}
+    Успеваемость: ${((perf / count) * 100).toFixed(1)}%
+    `)
+
+
+    let arr = [1, 2, 3, 2, 4, 5, 3, 6, 7, 5, 8, 9, 1]
+    let arrCopyFirstItem = []
+    let arrCopySecondItem = []
+
+    for (const item of arr) {
+      if (!arrCopyFirstItem.includes(item)) {
+        arrCopyFirstItem.push(item)
+      } else {
+        arrCopySecondItem.push(item)
+      }
+    }
+
+    alert(arrCopySecondItem)
+
+    let arr2 = ['яблоко', 'арбуз', 'банан', "ананас", "виноград", "абрикос", "вишня"]
+    let result = [
+      {
+        letter: "я",
+        elements: []
+      },
+      {
+        letter: "а",
+        elements: []
+      },
+      {
+        letter: "б",
+        elements: []
+      },
+      {
+        letter: "в",
+        elements: []
+      },
+    ]
+
+    for (const item of arr2) {
+      if (item[0] === 'я') {
+        result.find(el => el.letter === 'я').elements.push(item)
+      } else if (item[0] === 'а') {
+        result.find(el => el.letter === 'а').elements.push(item)
+      } else if (item[0] === 'б') {
+        result.find(el => el.letter === 'б').elements.push(item)
+      } else if (item[0] === 'в') {
+        result.find(el => el.letter === 'в').elements.push(item)
+      }
+    }
+
+    let matrix = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ]
+
+    let sumAll = 0
+    let sumFirstRow = 0
+    let sumSecondRow = 0
+    let sumThirdRow = 0
+    let sumFirstColumn = 0
+    let sumSecondColumn = 0
+    let sumThirdColumn = 0
+
+    for (let ixRow = 0; ixRow < matrix.length; ixRow++) {
+      const row = matrix[ixRow]
+      for (let ixColumn = 0; ixColumn < row.length; ixColumn++) {
+        sumAll += row[ixColumn]
+        if (ixRow === 0) {
+          sumFirstRow += row[ixColumn]
+        } else if (ixRow === 1) {
+          sumSecondRow += row[ixColumn]
+        } else if (ixRow === 2) {
+          sumThirdRow += row[ixColumn]
+        }
+        if (ixColumn === 0) {
+          sumFirstColumn += row[ixColumn]
+        } else if (ixColumn === 1) {
+          sumSecondColumn += row[ixColumn]
+        } else if (ixColumn === 2) {
+          sumThirdColumn += row[ixColumn]
+        }
+      }
+    }
+
+    alert(`
+    Всего - ${sumAll}
+    Сумма первой строки - ${sumFirstRow}
+    Сумма второй строки - ${sumSecondRow}
+    Сумма третьей строки - ${sumThirdRow}
+    Сумма первой колонки - ${sumFirstColumn}
+    Сумма второй колонки - ${sumSecondColumn}
+    Сумма третьей колонки - ${sumThirdColumn}
+    `)
+  </script>
+</body>
+</html>

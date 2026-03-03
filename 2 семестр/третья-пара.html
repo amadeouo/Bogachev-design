@@ -29,6 +29,7 @@
 
     function third(weight, distance, isExpress = false, isFragile = false) {
       let basePrice = 0
+
       if (weight < 1) { basePrice += 100 }
       if (weight < 5) { basePrice += 200 }
       if (weight < 10) { basePrice += 300 }
@@ -41,6 +42,56 @@
     }
 
     console.log(third(12, 13, false, true))
+
+    function calc(value = 0) {
+      let result = value
+
+      function sum(number) {
+        result += number
+        return this
+      }
+
+      function razn(number) {
+        result -= number
+        return this
+      }
+
+      function del(number) {
+        if (number === 0) {
+          console.log('Ошибка деления на ноль')
+          return this
+        }
+        result /= number
+        return this
+      }
+
+      function multiply(number) {
+        result *= number
+        return this
+      }
+
+      function getResult() {
+        return result
+      }
+
+      function reset() {
+        result = value
+        return this
+      }
+      return {
+        sum: sum,
+        del: del,
+        razn: razn,
+        multiply: multiply,
+        getResult: getResult,
+        reset: reset,
+      }
+    }
+
+    const num = calc(100)
+
+    console.log(num.del(2).getResult())
+
   </script>
 </body>
 </html>
