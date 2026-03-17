@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Document</title>
+</head>
+<body>
+  <script defer>
+    // task 1
+    let strings = [
+      "JavaScript",
+      "python programming",
+      "Java is cool",
+      "scripting language",
+      "TypeScript",
+      "javascript framework",
+      "JAVA SCRIPT",
+      "node-js"
+    ]
+
+    const otvet1 = strings.filter((str, ix) => {
+      return str.toLowerCase().includes("script") && str.length > 6 && !str.toLowerCase().startsWith("j")
+    })
+
+    // task 2
+    let numbers = [12, 2, 3, 2, 13, 12, 14, 5, 3, 7, 20, 11];
+    const numbersUnique = numbers.filter((num, ix) => {
+      return numbers.indexOf(num) === ix
+    })
+    const otvet2 = numbersUnique.sort((a, b) => a - b);
+
+    // task 3
+    const otvet3 = numbers.filter((num, ix) => {
+      return (num % 2 === 0 && num % 3 === 0 && num > 10)
+    })
+  </script>
+</body>
+</html>
