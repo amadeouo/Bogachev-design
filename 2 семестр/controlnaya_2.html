@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Контрольная 2</title>
+</head>
+<body>
+  <script>
+    let strings = [
+      "апельсин123",
+      "банан 456",
+      "игрушка7",
+      "ёжик",
+      "улитка99",
+      "яблоко",
+      "обезьяна 5",
+      "энциклопедия2023",
+      "арбуз_8",
+      "арбуз",
+      "дыня42",
+    ]
+
+    // Дан массив строк. Отфильтруйте строки, используя fil ter, которые:
+    // 1) Начинаются с буквы а
+    // 2) Содержат хотя бы одну цифру
+    // 3) He содержат пробелов
+
+    strings.filter(str =>
+      str.startsWith("a")
+        && str.includes("1")
+        && str.includes(" "))
+
+    let numbers = [1, 2, 1, 3, 3, 2, 4, 5, 6, 6, 7, 5, 8, 9, 1];
+    // Дан массив чисел. На основании использования циклов for создайте
+    // новый массив только уникальных значений
+
+    let uniqueNumbers = [];
+    for (number of numbers) {
+      if (!uniqueNumbers.includes(number)) {
+        uniqueNumbers.push(number)
+      }
+    }
+
+    console.log(uniqueNumbers);
+
+  </script>
+</body>
+</html>
