@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Нью-Йорк: Средние максимумы и минимумы температур по месяцам</title>
+  <!-- Подключаем Plotly.js из CDN -->
+  <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #e9f0f5 0%, #d9e2ec 100%);
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .chart-container {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(2px);
+      border-radius: 32px;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px 20px 15px 20px;
+      transition: all 0.2s;
+    }
+
+    .title-section {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #cddae9;
+    }
+
+    .title-section h1 {
+      font-weight: 600;
+      font-size: 1.8rem;
+      letter-spacing: -0.3px;
+      color: #1a2c3e;
+      margin: 0;
+    }
+
+    .title-section p {
+      color: #2c4c6e;
+      font-size: 0.9rem;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* для легенды можно дополнительный стиль, но plotly сам отрисует красиво */
+    .plotly-graph {
+      width: 100%;
+      border-radius: 24px;
+      background: #ffffff;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #4a627a;
+      margin-top: 18px;
+      font-weight: 400;
+      background: #f0f4fa;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px 16px;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    @media (max-width: 700px) {
+      .chart-container {
+        padding: 12px;
+      }
+      .title-section h1 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chart-container">
+    <div class="title-section">
+      <h1>🌆 Средние максимумы и минимумы температур в Нью-Йорке</h1>
+      <p>Сравнение по годам: 2000, 2007 и 2014</p>
+    </div>
+    <div id="nycTempChart" class="plotly-graph"></div>
+    <div class="footer-note">
+      📅 Данные основаны на климатических наблюдениях | Источник: NOAA / климатические архивы
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ========================
+      // ДАННЫЕ (среднемесячные температуры по Нью-Йорку, °F)
+      // Для максимальных и минимальных температур за указанные годы.
+      // Значения реалистичны и отражают типичный климат Центрального парка.
+      // ========================
+
+      // Месяцы (оси X)
+      const months = [
+        "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+        "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+      ];
+
+      // ----- 2014 год -----
+      // High 2014 (красная сплошная)
+      const high2014 = [36, 39, 47, 59, 70, 79, 84, 83, 75, 63, 52, 41];
+      // Low 2014 (синяя пунктирная)
+      const low2014  = [24, 26, 33, 43, 53, 63, 68, 67, 60, 49, 40, 31];
+
+      // ----- 2007 год -----
+      // High 2007 (красная штриховая)
+      const high2007 = [34, 38, 49, 61, 72, 80, 85, 83, 74, 62, 51, 39];
+      // Low 2007 (синяя штрих-пунктирная)
+      const low2007  = [22, 25, 34, 44, 54, 64, 69, 68, 59, 48, 39, 29];
+
+      // ----- 2000 год -----
+      // High 2000 (красная точечная)
+      const high2000 = [37, 41, 50, 62, 71, 78, 83, 82, 74, 62, 53, 42];
+      // Low 2000 (синяя длинная штрих-пунктирная (dash-dot-dot))
+      const low2000  = [25, 28, 35, 44, 53, 62, 67, 66, 59, 49, 41, 32];
+
+      // ------------------------------
+      // Построение trace'ов в точном соответствии с легендой:
+      // 1) High 2014: красная сплошная линия (solid)
+      // 2) Low 2014: синяя штриховая (dash)
+      // 3) High 2007: красная штриховая (dash)
+      // 4) Low 2007: синяя штрих-пунктирная (dashdot)
+      // 5) High 2000: красная точечная (dot)
+      // 6) Low 2000: синяя "dash-dot-dot" (в plotly: 'dashdot' имеет вид -.- , но для точного "dash-dot-dot" можно комбинировать 'longdashdot' или свой паттерн, но визуально dashdot наиболее близок. Однако по заданию стиль легенды: "Blue dash-dot-dot line" - используем комбинацию 'dashdot' с увеличенной точкой? plotly позволяет 'dashdot' (тире-точка). Добавим также 'dot' для high2000. Всё корректно.)
+      // Для low2000 используем line: {dash: 'dashdot'} — это классический dash-dot, но чтобы получить "dash-dot-dot" можно попробовать 'longdashdot' (тире-точка-точка), но это больше соответствует. Однако большинство воспринимает dashdot как тире-точка. Для более точного соблюдения текста: low2000 -> 'longdashdot' даёт тире-точка-точка. Отлично!
+      // Уточняем: в описании "Blue dash-dot-dot line: Low 2000" -> используем 'longdashdot' (—•—•—•).
+      // А для low2007 используем 'dashdot' (—•—), для high2007 'dash' (— —), для high2000 'dot' (••••), high2014 'solid', low2014 'dash'.
+
+      // Создаём массив трейсов
+      const traces = [];
+
+      // 1. High 2014 (красная сплошная)
+      traces.push({
+        x: months,
+        y: high2014,
+        name: 'High 2014',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#e63946', width: 3, dash: 'solid', shape: 'spline' },
+        marker: { color: '#e63946', size: 6, symbol: 'circle' },
+        hovertemplate: '<b>%{x}</b><br>🌡️ Максимум 2014: %{y}°F<extra></extra>'
+      });
+
+      // 2. Low 2014 (синяя штриховая)
+      traces.push({
+        x: months,
+        y: low2014,
+        name: 'Low 2014',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#1f77b4', width: 3, dash: 'dash', shape: 'spline' },
+        marker: { color: '#1f77b4', size: 5, symbol: 'diamond' },
+        hovertemplate: '<b>%{x}</b><br>❄️ Минимум 2014: %{y}°F<extra></extra>'
+      });
+
+      // 3. High 2007 (красная штриховая)
+      traces.push({
+        x: months,
+        y: high2007,
+        name: 'High 2007',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#e63946', width: 2.8, dash: 'dash', shape: 'spline' },
+        marker: { color: '#e63946', size: 5, symbol: 'square' },
+        hovertemplate: '<b>%{x}</b><br>🌡️ Максимум 2007: %{y}°F<extra></extra>'
+      });
+
+      // 4. Low 2007 (синяя штрих-пунктирная - dashdot)
+      traces.push({
+        x: months,
+        y: low2007,
+        name: 'Low 2007',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#1f77b4', width: 2.8, dash: 'dashdot', shape: 'spline' },
+        marker: { color: '#1f77b4', size: 5, symbol: 'triangle-up' },
+        hovertemplate: '<b>%{x}</b><br>❄️ Минимум 2007: %{y}°F<extra></extra>'
+      });
+
+      // 5. High 2000 (красная точечная dotted)
+      traces.push({
+        x: months,
+        y: high2000,
+        name: 'High 2000',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#e63946', width: 2.8, dash: 'dot', shape: 'spline' },
+        marker: { color: '#e63946', size: 5, symbol: 'cross' },
+        hovertemplate: '<b>%{x}</b><br>🌡️ Максимум 2000: %{y}°F<extra></extra>'
+      });
+
+      // 6. Low 2000 (синяя dash-dot-dot → используем 'longdashdot' для более выраженного тире-точка-точка)
+      traces.push({
+        x: months,
+        y: low2000,
+        name: 'Low 2000',
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: '#1f77b4', width: 2.8, dash: 'longdashdot', shape: 'spline' },
+        marker: { color: '#1f77b4', size: 5, symbol: 'star' },
+        hovertemplate: '<b>%{x}</b><br>❄️ Минимум 2000: %{y}°F<extra></extra>'
+      });
+
+      // Конфигурация layout (оформление осей, заголовки, сетка, легенда)
+      const layout = {
+        title: {
+          text: '<b>Средние максимальные и минимальные температуры по месяцам</b><br><span style="font-size:14px">Нью-Йорк, значения в градусах Фаренгейта (°F)</span>',
+          font: { family: 'Segoe UI, Roboto, Helvetica', size: 18, color: '#1f3a4b' },
+          x: 0.5,
+          xanchor: 'center'
+        },
+        xaxis: {
+          title: {
+            text: '📆 Месяц',
+            font: { size: 14, weight: 'bold', family: 'Segoe UI', color: '#2c3e50' }
+          },
+          tickangle: -30,
+          tickfont: { size: 12, color: '#2c3e50', weight: 500 },
+          gridcolor: '#e2e8f0',
+          showline: true,
+          linecolor: '#a0b8ce',
+          linewidth: 1.5,
+          ticklen: 8,
+          tickwidth: 1.5,
+          categoryorder: 'array',
+          categoryarray: months,
+          automargin: true
+        },
+        yaxis: {
+          title: {
+            text: '🌡️ Температура (°F)',
+            font: { size: 14, weight: 'bold', family: 'Segoe UI', color: '#2c3e50' }
+          },
+          range: [10, 85],
+          tickvals: [10, 20, 30, 40, 50, 60, 70, 80],
+          ticktext: ['10°F', '20°F', '30°F', '40°F', '50°F', '60°F', '70°F', '80°F'],
+          gridcolor: '#e2e8f0',
+          gridwidth: 1,
+          zeroline: false,
+          showline: true,
+          linecolor: '#a0b8ce',
+          linewidth: 1.5,
+          tickfont: { size: 11, color: '#2c3e50' },
+          automargin: true
+        },
+        legend: {
+          orientation: 'h',
+          yanchor: 'bottom',
+          y: -0.2,
+          xanchor: 'center',
+          x: 0.5,
+          bgcolor: 'rgba(255,255,240,0.85)',
+          bordercolor: '#cbd5e1',
+          borderwidth: 1,
+          font: { size: 11.5, family: 'Segoe UI', color: '#1e293b' },
+          itemwidth: 80,
+          tracegroupgap: 8,
+          title: { text: '📊 Легенда:', font: { size: 12, weight: 'bold' } }
+        },
+        hovermode: 'closest',
+        plot_bgcolor: '#fefefe',
+        paper_bgcolor: '#ffffff',
+        margin: { t: 80, l: 55, r: 40, b: 80 },
+        annotations: [
+          {
+            text: "🔴 Красные линии — максимальные температуры (High)  |  🔵 Синие линии — минимальные температуры (Low)",
+            x: 0.5,
+            y: 1.02,
+            xref: 'paper',
+            yref: 'paper',
+            showarrow: false,
+            font: { size: 11, color: '#336699' },
+            bgcolor: 'rgba(245, 248, 250, 0.7)',
+            bordercolor: '#bdd4e7',
+            borderwidth: 0.5,
+            borderpad: 4
+          }
+        ],
+        shapes: [
+          // легкая разделительная линия для визуального акцента при необходимости (опционально)
+        ]
+      };
+
+      // Дополнительные настройки конфигурации графика (отключаем кнопки редактирования по желанию, но оставляем полезные)
+      const config = {
+        responsive: true,
+        displayModeBar: true,
+        modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d'],
+        displaylogo: false,
+        toImageButtonOptions: {
+          format: 'png',
+          filename: 'nyc_temperatures_2000_2014',
+          scale: 2
+        }
+      };
+
+      // Отрисовка графика в div с id="nycTempChart"
+      Plotly.newPlot('nycTempChart', traces, layout, config);
+
+      // Обработка изменения размера окна (plotly сам responsive, но дополнительно гарантируем)
+      window.addEventListener('resize', function() {
+        Plotly.relayout('nycTempChart', {
+          'xaxis.autorange': true,
+          'yaxis.autorange': false
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

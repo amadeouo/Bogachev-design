@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <title>Графики</title>
+  <script src="https://cdn.plot.ly/plotly-3.4.0.min.js"></script>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    let x = [
+      "day1", "day1", "day1", "day1", "day1", "day1",
+      "day2", "day2", "day2", "day2", "day2", "day2",
+    ]
+
+    let trace1 = {
+      x: [1, 2, 3, 4],
+      y: [11, 12, 13, 14],
+      type: "scatter",
+      mode: "markers",
+      marker: {
+        name: "первый диапазон",
+        color: "grey",
+        size: 12,
+        symbol: ["circle", "square", "cross", "diamond"]
+      }
+    }
+
+    let trace2 = {
+      x: [1, 2, 3, 4],
+      y: [10, 11, 12, 13],
+      type: "scatter",
+      mode: "markers",
+      marker: {
+        name: "второй диапазон",
+        color: "grey",
+        size: 12,
+        symbol: ["circle", "square", "cross", "diamond"]
+      }
+    }
+
+    let trace3 = {
+      x: [1, 2, 3, 4],
+      y: [12, 13, 14, 15],
+      type: "scatter",
+      mode: "markers",
+      marker: {
+        name: "третий диапазон",
+        color: "grey",
+        size: 12,
+        symbol: ["circle", "square", "cross", "diamond"],
+      }
+    }
+
+    let data = [trace1, trace2, trace3]
+    let layout = {
+      title: {
+        text: "АХААХАХ"
+      },
+      xaxis: {
+        title: "x ось",
+        angle: "45"
+      },
+      yaxis: {
+        title: "y ось"
+      },
+      color: "grey",
+      showLegend: false,
+    }
+
+    // добавить название графика
+    // добавить подписи осей по x и по y
+    // подписи по x сделать под углом
+    // удалить легенду
+    // переименовать диапазон
+    // добавить диапазон
+    // сделать серую заливку
+    // у трех из них будет зеленая граница обводка, а у одного из них красная более толстая
+
+
+    Plotly.newPlot("box", data, layout)
+  </script>
+</body>
+</html>

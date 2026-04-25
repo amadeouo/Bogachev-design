@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <script src="https://cdn.plot.ly/plotly-3.4.0.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="box"></div>
+  <div id="box1"></div>
+  <div id="box2"></div>
+  <script>
+    const data = [{
+      values: [7.2, 32.9, 24.4, 19, 9, 7.4],
+      labels: ['Berry Bursts', 'Mocha Marvels', 'Caramel Swirls', "PB Bliss", "Choco Chippers", "Mint melts"],
+      type: 'pie',
+      textinfo: "label+percent",
+      textposition: "outside",
+      marker: {
+        line: {
+          color: "#FFF",
+          width: 2,
+        }
+      }
+    }];
+
+    const layout = {
+      title: {
+        text: "Cookie Market Share 2023"
+      },
+      showlegend: false,
+    };
+
+    Plotly.newPlot("box", data, layout);
+
+    let xValue = ['Feature A', 'Feature B', 'Feature C', 'Feature D', 'Feature E'];
+    let yValue = [20, 14, 23, 25, 22];
+    let trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      marker: {
+        color: ['grey', 'red', 'grey', 'grey', 'grey']
+      }
+    };
+    let data1 = [trace1];
+    let layout1 = {
+      title: 'Least Used Feature',
+      showlegend: false
+    };
+    Plotly.newPlot('box1', data1, layout1);
+
+    let trace2_1 = {
+      x: [43000, 52500],
+      y: [31, 53],
+      mode: 'markers',
+      type: 'scatter',
+      name: 'North America',
+      marker: {
+        size: 12,
+        color: '#9eb8e5',
+        opacity: 0.7
+      }
+    };
+
+    let trace2_2 = {
+      x: [18000, 21000, 23500, 27500, 29500, 36000, 37500, 39500],
+      y: [38, 44, 49, 19, 27, 13, 20, 33],
+      mode: 'markers',
+      type: 'scatter',
+      name: 'Europe',
+      marker: {
+        size: 12,
+        color: '#edc94a',
+        opacity: 0.7
+      }
+    };
+
+    let trace2_3 = {
+      x: [4000, 4700, 5200, 9800, 17500, 33000, 37200, 43000],
+      y: [70, 93, 99, 14, 89, 54, 42, 23],
+      mode: 'markers',
+      type: 'scatter',
+      name: 'Asia/Pacific',
+      marker: {
+        size: 12,
+        color: '#dc8f91',
+        opacity: 0.7
+      }
+    };
+
+    let trace2_4 = {
+      x: [5500, 7500, 12000, 13500, 16000, 16800, 17500, 19000],
+      y: [80, 93, 86, 80, 56, 47, 43, 42],
+      mode: 'markers',
+      type: 'scatter',
+      name: 'Latin America',
+      marker: {
+        size: 12,
+        color: '#7d68b7',
+        opacity: 0.7
+      }
+    };
+
+    let data2 = [trace2_1, trace2_2, trace2_3, trace2_4];
+
+    let layout2 = {
+      title: 'Quarter 1 Growth',
+      xaxis: {
+        title: 'GDP per Capita',
+        tickvals: [10000, 20000, 30000, 40000, 50000],
+        ticktext: ['10k', '20k', '30k', '40k', '50k']
+      },
+      yaxis: {
+        title: 'Percent'
+      }
+    };
+
+    Plotly.newPlot('box2', data2, layout2);
+
+
+
+
+  </script>
+</body>
+</html>
